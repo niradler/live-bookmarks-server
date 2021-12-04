@@ -104,8 +104,11 @@ const main = async () => {
     });
 
     const port = PORT || 3033;
-    app.listen(port, (err) => {
-      if (err) throw err;
+    app.listen(port, "0.0.0.0", (err) => {
+      if (err) {
+        app.log.error(err);
+        process.exit(1);
+      }
     });
   } catch (error) {
     app.log.error(error.message);
