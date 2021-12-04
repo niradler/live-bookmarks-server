@@ -11,14 +11,16 @@ const main = async () => {
     await app.register(dbConnector);
     await app.register(require("fastify-express"));
 
-    app.use((req, res, next) => {
-      const key = req.headers.Authorization || req.headers.authorization;
-      if (key === API_KEY || req.path === "/") {
-        next();
-      } else {
-        res.status(401).send("Unauthorized");
-      }
-    });
+    if (API_KEY) {
+      app.use((req, res, next) => {
+        const key = req.headers.Authorization || req.headers.authorization;
+        if (key === API_KEY || req.path === "/") {
+          next();
+        } else {
+          res.status(401).send("Unauthorized");
+        }
+      });
+    }
 
     app.get("/", async (req, res) => {
       return { status: "up", now: new Date() };
