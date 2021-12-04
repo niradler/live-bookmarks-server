@@ -1,0 +1,20 @@
+{
+  "name": "live-bookmarks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Nir Adler",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fastify": "^3.24.1",
+    "fastify-express": "^0.3.3",
+    "fastify-plugin": "^3.0.0",
+    "knex": "^0.95.14",
+    "pg": "^8.7.1"
+  }
+}
