@@ -10,13 +10,18 @@ const main = async () => {
   try {
     await app.register(dbConnector);
     await app.register(require("fastify-express"));
+
     app.use((req, res, next) => {
       const key = req.headers.Authorization || req.headers.authorization;
-      if (key === API_KEY) {
+      if (key === API_KEY || req.path === "/") {
         next();
       } else {
         res.status(401).send("Unauthorized");
       }
+    });
+
+    app.get("/", async (req, res) => {
+      return { status: "up", now: new Date() };
     });
 
     app.get("/tags", async (req, res) => {
@@ -99,9 +104,8 @@ const main = async () => {
     });
 
     const port = PORT || 3033;
-    app.listen(port, (err, address) => {
+    app.listen(port, (err) => {
       if (err) throw err;
-      console.log(`App running on ${address}`);
     });
   } catch (error) {
     app.log.error(error.message);
